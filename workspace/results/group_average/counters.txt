@@ -1,0 +1,10 @@
+		Map input records=26024290
+		Map output records=26024289
+		Combine input records=26360754
+		Combine output records=513751
+		Reduce input groups=45115
+		Reduce input records=177286
+		Reduce output records=45115
+		HEADER=1
+		INVALID=0
+		VALID=26024289

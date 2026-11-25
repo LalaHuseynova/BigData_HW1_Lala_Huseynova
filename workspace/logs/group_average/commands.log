@@ -1,0 +1,19 @@
++ sha256sum build/GroupAverage.jar
+0aaaff9c585583c58bf28a86655430b13c3bdd2e9588e55c5af36e067c8923fc  build/GroupAverage.jar
++ hdfs dfs -ls /hw1_Lala_Huseynova/dataset/ratings.csv
++ hadoop jar build/GroupAverage.jar GroupAverage /hw1_Lala_Huseynova/dataset/ratings.csv /hw1_Lala_Huseynova/output/group_average
++ hdfs dfs -test -e /hw1_Lala_Huseynova/output/group_average/_SUCCESS
++ hdfs dfs -get /hw1_Lala_Huseynova/output/group_average results/group_average/output
++ echo /hw1_Lala_Huseynova/output/group_average
+++ sed -n 's/.*Job \(job_[0-9_]*\) completed successfully.*/\1/p' logs/group_average/job.log
++ job=job_1795619064165_0008
++ test -n job_1795619064165_0008
++ mkdir logs/group_average/history
++ hdfs dfs -get '/tmp/hadoop-yarn/staging/history/done_intermediate/hadoop/job_1795619064165_0008*' logs/group_average/history/
++ grep -E '^[[:space:]]*(Map input records|Map output records|Combine input records|Combine output records|Reduce input records|Reduce input groups|Reduce output records|HEADER|VALID|INVALID)=' logs/group_average/job.log
++ java --source 17 VerifyGroupCounts.java results/group_average
++ tee results/group_average/verification.txt
+Input records accounted for (header + valid + invalid) = 26024290
+Sum of rating counts across all movies = 26024289
+Distinct movie IDs in reducer output = 45115
+PASS: input totals, valid ratings and movie counts match Hadoop counters.

@@ -1,0 +1,10 @@
+		Map input records=125869
+		Map output records=1068410
+		Map output bytes=19823751
+		Map output materialized bytes=11629569
+		Combine input records=1068410
+		Combine output records=528967
+		Reduce input groups=346334
+		Reduce shuffle bytes=11629569
+		Reduce output records=346334
+		Failed Shuffles=0

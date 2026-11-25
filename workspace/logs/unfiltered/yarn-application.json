@@ -1,0 +1,65 @@
+﻿{
+    "app":  {
+                "id":  "application_1795619064165_0005",
+                "user":  "hadoop",
+                "name":  "BigramCount unfiltered",
+                "queue":  "root.default",
+                "state":  "FINISHED",
+                "finalStatus":  "SUCCEEDED",
+                "progress":  100.0,
+                "trackingUI":  "History",
+                "trackingUrl":  "http://resourcemanager:8088/proxy/application_1795619064165_0005/",
+                "diagnostics":  "",
+                "clusterId":  1795619064165,
+                "applicationType":  "MAPREDUCE",
+                "applicationTags":  "",
+                "priority":  0,
+                "startedTime":  1795620923024,
+                "launchTime":  1795620923080,
+                "finishedTime":  1795620982383,
+                "elapsedTime":  59359,
+                "amContainerLogs":  "http://nodemanager:8042/node/containerlogs/container_1795619064165_0005_01_000001/hadoop",
+                "amHostHttpAddress":  "nodemanager:8042",
+                "amRPCAddress":  "nodemanager:38069",
+                "masterNodeId":  "nodemanager:38133",
+                "allocatedMB":  -1,
+                "allocatedVCores":  -1,
+                "reservedMB":  -1,
+                "reservedVCores":  -1,
+                "runningContainers":  -1,
+                "memorySeconds":  143775,
+                "vcoreSeconds":  274,
+                "queueUsagePercentage":  0.0,
+                "clusterUsagePercentage":  0.0,
+                "resourceSecondsMap":  {
+                                           "entry":  [
+                                                         {
+                                                             "key":  "memory-mb",
+                                                             "value":  143775
+                                                         },
+                                                         {
+                                                             "key":  "vcores",
+                                                             "value":  274
+                                                         }
+                                                     ]
+                                       },
+                "preemptedResourceMB":  0,
+                "preemptedResourceVCores":  0,
+                "numNonAMContainerPreempted":  0,
+                "numAMContainerPreempted":  0,
+                "preemptedMemorySeconds":  0,
+                "preemptedVcoreSeconds":  0,
+                "logAggregationStatus":  "DISABLED",
+                "unmanagedApplication":  false,
+                "amNodeLabelExpression":  "",
+                "timeouts":  {
+                                 "timeout":  [
+                                                 {
+                                                     "type":  "LIFETIME",
+                                                     "expiryTime":  "UNLIMITED",
+                                                     "remainingTimeInSeconds":  -1
+                                                 }
+                                             ]
+                             }
+            }
+}

@@ -1,0 +1,17 @@
+Part 3 full-data run
+
+Build commands for the current source layout (in namenode, from /workspace, for a fresh build)
+mkdir build/group_average
+javac --release 17 -encoding UTF-8 -cp "$(hadoop classpath --glob)" -d build/group_average groupaverage/GroupAverage.java
+jar --create --file build/GroupAverage.jar -C build/group_average .
+
+Full job and verification (PowerShell at the project root)
+docker compose exec -T namenode bash /workspace/scripts/run-group-average.sh
+
+Exact Hadoop command used inside namenode from /workspace
+hadoop jar build/GroupAverage.jar GroupAverage /hw1_Lala_Huseynova/dataset/ratings.csv /hw1_Lala_Huseynova/output/group_average
+
+To repeat the experiment with the tested JAR, use the run script. It chooses
+a new output path when the previous results exist. To recheck the original
+results without submitting a Hadoop job, use:
+docker compose exec -T namenode java --source 17 /workspace/groupaverage/VerifyGroupCounts.java /workspace/results/group_average

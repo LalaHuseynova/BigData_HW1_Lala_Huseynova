@@ -1,0 +1,65 @@
+﻿{
+    "app":  {
+                "id":  "application_1795619064165_0008",
+                "user":  "hadoop",
+                "name":  "GroupAverage by movieId",
+                "queue":  "root.default",
+                "state":  "FINISHED",
+                "finalStatus":  "SUCCEEDED",
+                "progress":  100.0,
+                "trackingUI":  "History",
+                "trackingUrl":  "http://resourcemanager:8088/proxy/application_1795619064165_0008/",
+                "diagnostics":  "",
+                "clusterId":  1795619064165,
+                "applicationType":  "MAPREDUCE",
+                "applicationTags":  "",
+                "priority":  0,
+                "startedTime":  1795622886818,
+                "launchTime":  1795622886863,
+                "finishedTime":  1795622940115,
+                "elapsedTime":  53297,
+                "amContainerLogs":  "http://nodemanager:8042/node/containerlogs/container_1795619064165_0008_01_000001/hadoop",
+                "amHostHttpAddress":  "nodemanager:8042",
+                "amRPCAddress":  "nodemanager:34111",
+                "masterNodeId":  "nodemanager:38133",
+                "allocatedMB":  -1,
+                "allocatedVCores":  -1,
+                "reservedMB":  -1,
+                "reservedVCores":  -1,
+                "runningContainers":  -1,
+                "memorySeconds":  131108,
+                "vcoreSeconds":  251,
+                "queueUsagePercentage":  0.0,
+                "clusterUsagePercentage":  0.0,
+                "resourceSecondsMap":  {
+                                           "entry":  [
+                                                         {
+                                                             "key":  "memory-mb",
+                                                             "value":  131108
+                                                         },
+                                                         {
+                                                             "key":  "vcores",
+                                                             "value":  251
+                                                         }
+                                                     ]
+                                       },
+                "preemptedResourceMB":  0,
+                "preemptedResourceVCores":  0,
+                "numNonAMContainerPreempted":  0,
+                "numAMContainerPreempted":  0,
+                "preemptedMemorySeconds":  0,
+                "preemptedVcoreSeconds":  0,
+                "logAggregationStatus":  "DISABLED",
+                "unmanagedApplication":  false,
+                "amNodeLabelExpression":  "",
+                "timeouts":  {
+                                 "timeout":  [
+                                                 {
+                                                     "type":  "LIFETIME",
+                                                     "expiryTime":  "UNLIMITED",
+                                                     "remainingTimeInSeconds":  -1
+                                                 }
+                                             ]
+                             }
+            }
+}

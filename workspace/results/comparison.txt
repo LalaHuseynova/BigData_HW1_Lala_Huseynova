@@ -1,0 +1,8 @@
+Ten books | Stopword filtering comparison
+Stopwords: 123 total, 123 unique
+Measure                Unfiltered     Filtered    Reduction  Reduction %
+Map output bytes       19,823,751    4,081,093   15,742,658       79.41%
+Distinct bigrams          346,334      128,654      217,680       62.85%
+PASS: Both distinct counts match Hadoop Reduce output records.
+PASS: Filtering the unfiltered output reproduced every filtered key and count.
+Verified retained keys: 128654 | Stopword-containing keys retained: 0

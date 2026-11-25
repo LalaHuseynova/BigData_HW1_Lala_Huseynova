@@ -1,0 +1,43 @@
+Part 2 experiment commands
+
+Use PowerShell in C:\Users\User\BigData-HW1. The original full runs used
+/workspace/build/BigramCount.jar in the namenode service, with SHA-256
+9e0b3cecb88fd564541aea0870d62cb444d9653f8ec1e74a6c558cd2e4f08a3c.
+
+Compile for the video in a fresh directory inside the container
+docker compose exec namenode bash
+cd /workspace
+demo=$(mktemp -d /workspace/build/video-XXXXXX)
+mkdir "$demo/classes"
+javac --release 17 -encoding UTF-8 -cp "$(hadoop classpath --glob)" -d "$demo/classes" bigram/BigramCount.java
+jar --create --file "$demo/BigramCount.jar" -C "$demo/classes" .
+jar --list --file "$demo/BigramCount.jar"
+exit
+
+Run the two jobs with the tested JAR
+docker compose exec -T namenode bash /workspace/scripts/run-bigram.sh unfiltered
+docker compose exec -T namenode bash /workspace/scripts/run-bigram.sh filtered
+The script prints the exact hadoop jar command, checks _SUCCESS and downloads
+the reducer output. It gives repeat runs new directory names. Use those names
+in the analysis commands below when reproducing the experiment.
+
+Generate rankings and check the output against the Hadoop counters
+docker compose exec -T namenode bash /workspace/scripts/analyze-bigrams.sh unfiltered
+docker compose exec -T namenode bash /workspace/scripts/analyze-bigrams.sh filtered
+These commands operate on fresh result directories produced by the run script.
+To redisplay the original ranking directly from preserved reducer output:
+docker compose exec -T namenode java --source 17 /workspace/bigram/BigramAnalysis.java /workspace/results/filtered/output
+
+Compare both sets of output rows and compute reductions
+docker compose exec -T namenode java --source 17 /workspace/bigram/CompareBigrams.java /workspace/results/unfiltered /workspace/results/filtered /workspace/stopwords.txt
+The local stopword file was checked byte for byte against the HDFS input.
+Reduction percentages use the unfiltered value as the denominator.
+
+Evidence
+The logs for each mode include the client log, command trace, job history,
+job configuration, NodeManager container logs, and YARN application record.
+The results for each mode contain the complete reducer output, input file
+listing, HDFS output path, counters, and ranking. comparison.txt contains the
+Java comparison of the original full runs.
+All ten books were processed as supplied, including Project Gutenberg headers
+and licensing text. Repeated boilerplate can contribute to bigram frequencies.

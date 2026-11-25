@@ -1,0 +1,7 @@
++ hdfs dfs -ls /hw1_Lala_Huseynova/books
++ sha256sum /workspace/build/BigramCount.jar
+9e0b3cecb88fd564541aea0870d62cb444d9653f8ec1e74a6c558cd2e4f08a3c  /workspace/build/BigramCount.jar
++ hadoop jar /workspace/build/BigramCount.jar BigramCount /hw1_Lala_Huseynova/books /hw1_Lala_Huseynova/output/bigram_without_stopwords
++ hdfs dfs -test -e /hw1_Lala_Huseynova/output/bigram_without_stopwords/_SUCCESS
++ hdfs dfs -get /hw1_Lala_Huseynova/output/bigram_without_stopwords /workspace/results/unfiltered/output
++ echo /hw1_Lala_Huseynova/output/bigram_without_stopwords

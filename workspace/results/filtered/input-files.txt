@@ -1,0 +1,11 @@
+Found 10 items
+-rw-r--r--   1 hadoop supergroup     466508 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_black_arrow.txt
+-rw-r--r--   1 hadoop supergroup     254782 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_country_of_the_pointed_firs.txt
+-rw-r--r--   1 hadoop supergroup     823004 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_custom_of_the_country.txt
+-rw-r--r--   1 hadoop supergroup     649593 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_house_of_the_seven_gables.txt
+-rw-r--r--   1 hadoop supergroup     451824 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_lost_world.txt
+-rw-r--r--   1 hadoop supergroup    1212404 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_mill_on_the_floss.txt
+-rw-r--r--   1 hadoop supergroup    1135528 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_moonstone.txt
+-rw-r--r--   1 hadoop supergroup     322863 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_prisoner_of_zenda.txt
+-rw-r--r--   1 hadoop supergroup     583169 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_story_of_an_african_farm.txt
+-rw-r--r--   1 hadoop supergroup     808537 2026-11-24 20:14 /hw1_Lala_Huseynova/books/the_woodlanders.txt

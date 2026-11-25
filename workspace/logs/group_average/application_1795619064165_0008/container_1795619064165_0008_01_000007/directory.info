@@ -1,0 +1,24 @@
+ls -l:
+total 32
+-rw-r--r-- 1 hadoop users  129 Nov 25 16:08 container_tokens
+-rwx------ 1 hadoop users  678 Nov 25 16:08 default_container_executor_session.sh
+-rwx------ 1 hadoop users  733 Nov 25 16:08 default_container_executor.sh
+lrwxrwxrwx 1 hadoop users  109 Nov 25 16:08 job.jar -> /tmp/hadoop-hadoop/nm-local-dir/usercache/hadoop/appcache/application_1795619064165_0008/filecache/14/job.jar
+lrwxrwxrwx 1 hadoop users  109 Nov 25 16:08 job.xml -> /tmp/hadoop-hadoop/nm-local-dir/usercache/hadoop/appcache/application_1795619064165_0008/filecache/15/job.xml
+-rwx------ 1 hadoop users 5044 Nov 25 16:08 launch_container.sh
+drwx--x--- 2 hadoop users 4096 Nov 25 16:08 tmp
+find -L . -maxdepth 5 -ls:
+    12664      4 drwx--x---   3 hadoop   users        4096 Nov 25 16:08 .
+    12782      4 -rw-r--r--   1 hadoop   users          16 Nov 25 16:08 ./.default_container_executor.sh.crc
+    12679      4 drwx--x---   2 hadoop   users        4096 Nov 25 16:08 ./tmp
+    12755      4 -rwx------   1 hadoop   users         678 Nov 25 16:08 ./default_container_executor_session.sh
+    12703      8 -rwx------   1 hadoop   users        5044 Nov 25 16:08 ./launch_container.sh
+    12757      4 -rw-r--r--   1 hadoop   users          16 Nov 25 16:08 ./.default_container_executor_session.sh.crc
+    12681      4 -rw-r--r--   1 hadoop   users         129 Nov 25 16:08 ./container_tokens
+    12758      4 -rwx------   1 hadoop   users         733 Nov 25 16:08 ./default_container_executor.sh
+    12699      4 -rw-r--r--   1 hadoop   users          12 Nov 25 16:08 ./.container_tokens.crc
+    12509      4 drwx------   2 hadoop   users        4096 Nov 25 16:08 ./job.jar
+    12512      8 -r-x------   1 hadoop   users        6407 Nov 25 16:08 ./job.jar/job.jar
+    12500    268 -r-x------   1 hadoop   users      272657 Nov 25 16:08 ./job.xml
+    12710      4 -rw-r--r--   1 hadoop   users          48 Nov 25 16:08 ./.launch_container.sh.crc
+broken symlinks(find -L . -maxdepth 5 -type l -ls):

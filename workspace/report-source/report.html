@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Homework 1 · Lala Huseynova · INFT 4836</title>
+<style>
+@page { size: A4; margin: 15mm 16mm 14mm; }
+* { box-sizing: border-box; }
+body { margin: 0; background: white; color: #1e252c; font: 11pt/1.35 Georgia, serif; }
+.page { position: relative; height: 267mm; padding-bottom: 8mm; break-after: page; }
+.page:last-child { break-after: auto; }
+h1, h2, .section-label, table, figcaption, footer, .course { font-family: Arial, sans-serif; }
+h1 { font-size: 21pt; margin: 1mm 0 4mm; line-height: 1.12; color: #182736; }
+h2 { font-size: 12pt; line-height: 1.22; margin: 3.5mm 0 1.3mm; color: #182736; }
+p { margin: 0 0 2.7mm; }
+.section-label { font-size: 9.5pt; font-weight: bold; color: #395366; }
+code { font: 8.9pt Consolas, monospace; overflow-wrap: anywhere; }
+a { color: #185372; text-decoration: underline; }
+footer { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; border-top: 0.4pt solid #bac1c8; padding-top: 2mm; font-size: 8.5pt; color: #505b65; }
+.cover { padding-top: 46mm; }
+.cover h1 { font-size: 32pt; margin-bottom: 3mm; }
+.course { font-size: 17pt; margin-bottom: 6mm; }
+.subtitle { font-size: 13pt; }
+.cover-meta { margin-top: 19mm; border-top: 1pt solid #395366; padding-top: 6mm; }
+.cover-meta p { margin-bottom: 6mm; }
+.placeholder { display: inline-block; margin-top: 2mm; border: 1pt solid #557184; padding: 2mm 3mm; font: bold 11pt Arial, sans-serif; }
+table { width: 100%; border-collapse: collapse; margin: 2.6mm 0 3.3mm; font-size: 10pt; line-height: 1.22; font-variant-numeric: tabular-nums; }
+thead { background: #e9eef3; }
+th, td { text-align: left; padding: 1.18mm 2mm; border-bottom: 0.45pt solid #d7dce1; }
+tbody th { font-weight: normal; }
+tbody tr:nth-child(even) { background: #f6f8fa; }
+.books td:nth-child(3), .books thead th:nth-child(3), .ranks td, .ranks th, .comparison td, .comparison th:not(:first-child) { text-align: right; }
+.bigrams td:nth-child(2), .bigrams th:nth-child(2), .bigrams td:nth-child(5), .bigrams th:nth-child(5) { text-align: left; }
+.bigrams td:nth-child(4), .bigrams th:nth-child(4) { border-left: .7pt solid #d7dce1; }
+.bigrams th, .bigrams td { padding-top: 1.5mm; padding-bottom: 1.5mm; }
+.movies th, .movies td { padding-top: 0.95mm; padding-bottom: 0.95mm; }
+.runs td:nth-child(2) { white-space: nowrap; }
+.totals th, .totals td { text-align: right; }
+.question { font-weight: bold; margin-bottom: 4mm; }
+.formula { font-size: 10.2pt; font-variant-numeric: tabular-nums; }
+figure { margin: 3mm 0 3.6mm; break-inside: avoid; }
+figure img { width: 100%; height: auto; display: block; }
+.data figure img { width: 78%; margin-inline: auto; }
+.group-execution figure:first-of-type img { width: 90%; margin-inline: auto; }
+figcaption { font-size: 9pt; line-height: 1.25; margin-top: 1.35mm; color: #303b45; }
+@media screen {
+  body { background: #eef0f3; }
+  .page { width: 210mm; height: 297mm; padding: 15mm 16mm 22mm; background: white; margin: 7mm auto; }
+  footer { left: 16mm; right: 16mm; bottom: 14mm; }
+}
+</style>
+</head>
+<body>
+<section class="page" aria-label="Page 1">
+<div class="cover">
+<div class="section-label">INFT 4836</div>
+<h1>Homework 1</h1>
+<p class="course">Intro to Big Data Analytics</p>
+<p class="subtitle">Bigram counts and average movie ratings with Hadoop MapReduce</p>
+<div class="cover-meta">
+<p><strong>Student</strong><br>Lala Huseynova</p>
+<p><strong>Submission date</strong><br>25 November 2026</p>
+<p><strong>Video explanation</strong><br><span class="placeholder">[INSERT UNLISTED YOUTUBE VIDEO LINK]</span></p>
+</div>
+</div>
+<footer><span>INFT 4836 · Homework 1</span><span>1 / 9</span></footer>
+</section>
+<section class="page data" aria-label="Page 2">
+<div class="section-label">Part 1 · 10 points</div>
+<h1>Data preparation</h1>
+<h2>1.1 Book collection</h2>
+<p>Ten English-language books from Project Gutenberg were uploaded as individual plain-text files to <code>/hw1_Lala_Huseynova/books</code>. The files total 6,708,212 bytes. The smallest is 254,782 bytes, so all ten exceed the 100 kB minimum.</p>
+<table class="books"><thead><tr><th scope="col">Book</th><th scope="col">Author</th><th scope="col">Bytes</th><th scope="col">Source</th></tr></thead><tbody>
+<tr><th scope="row">The Black Arrow</th><td>Robert Louis Stevenson</td><td>466,508</td><td><a href="https://gutenberg.pglaf.org/cache/epub/848/pg848.txt">Project Gutenberg #848</a></td></tr>
+<tr><th scope="row">The Country of the Pointed Firs</th><td>Sarah Orne Jewett</td><td>254,782</td><td><a href="https://gutenberg.pglaf.org/cache/epub/367/pg367.txt">Project Gutenberg #367</a></td></tr>
+<tr><th scope="row">The Custom of the Country</th><td>Edith Wharton</td><td>823,004</td><td><a href="https://gutenberg.pglaf.org/cache/epub/11052/pg11052.txt">Project Gutenberg #11052</a></td></tr>
+<tr><th scope="row">The House of the Seven Gables</th><td>Nathaniel Hawthorne</td><td>649,593</td><td><a href="https://gutenberg.pglaf.org/cache/epub/77/pg77.txt">Project Gutenberg #77</a></td></tr>
+<tr><th scope="row">The Lost World</th><td>Arthur Conan Doyle</td><td>451,824</td><td><a href="https://gutenberg.pglaf.org/cache/epub/139/pg139.txt">Project Gutenberg #139</a></td></tr>
+<tr><th scope="row">The Mill on the Floss</th><td>George Eliot</td><td>1,212,404</td><td><a href="https://gutenberg.pglaf.org/cache/epub/6688/pg6688.txt">Project Gutenberg #6688</a></td></tr>
+<tr><th scope="row">The Moonstone</th><td>Wilkie Collins</td><td>1,135,528</td><td><a href="https://gutenberg.pglaf.org/cache/epub/155/pg155.txt">Project Gutenberg #155</a></td></tr>
+<tr><th scope="row">The Prisoner of Zenda</th><td>Anthony Hope</td><td>322,863</td><td><a href="https://gutenberg.pglaf.org/cache/epub/95/pg95.txt">Project Gutenberg #95</a></td></tr>
+<tr><th scope="row">The Story of an African Farm</th><td>Olive Schreiner</td><td>583,169</td><td><a href="https://gutenberg.pglaf.org/cache/epub/1441/pg1441.txt">Project Gutenberg #1441</a></td></tr>
+<tr><th scope="row">The Woodlanders</th><td>Thomas Hardy</td><td>808,537</td><td><a href="https://gutenberg.pglaf.org/cache/epub/482/pg482.txt">Project Gutenberg #482</a></td></tr>
+</tbody></table>
+<figure><img src="../screenshots/01_hdfs_books.png" alt="The HDFS directory contains all ten input books."><figcaption><strong>Figure 1.</strong> The HDFS directory contains all ten input books.</figcaption></figure>
+<h2>1.2 The Movies Dataset</h2>
+<p>The selected file, <code>ratings.csv</code>, is 709,550,327 bytes and is stored at <code>/hw1_Lala_Huseynova/dataset/ratings.csv</code>. Its columns are <code>userId,movieId,rating,timestamp</code>. It is the Movies option in the assignment and supplies a movie ID for grouping and a numerical rating for averaging. <a href="https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset">Kaggle dataset page</a></p>
+<h2>1.3 Stopword list</h2>
+<p>The list contains 123 unique words, exceeding the 50-word minimum. The second bigram run excludes pairs containing these words to measure how they affect the ranking, the volume of mapper output, and the number of distinct keys.</p>
+<footer><span>INFT 4836 · Homework 1</span><span>2 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 3">
+<div class="section-label">Part 2 · 35 points</div>
+<h1>Bigram count</h1>
+<h2>2.1 Implementation</h2>
+<p><strong>Mapper.</strong> Hadoop supplies each line as a record. The mapper lowercases the line with <code>Locale.ROOT</code> and extracts words with a regular expression. It drops surrounding punctuation and retains single internal apostrophes, hyphens, periods, and underscores between word segments. It also normalizes curly apostrophes and two Unicode hyphen variants.</p>
+<p>The mapper remembers the previous token only within the current line. It emits each eligible adjacent pair as the key with a 64-bit count of one. In the filtered run, each mapper loads the stopword file into a set during setup. A pair is skipped if either word is in that set. The window still advances through every token. For example, with <em>of</em> in the list, <em>king of country</em> contributes zero pairs because both original pairs contain <em>of</em>.</p>
+<p><strong>Combiner and reducer.</strong> They use the same summing class. The combiner adds repeated pair counts locally, and the reducer adds the resulting counts for each pair across the input splits.</p>
+<p><strong>Driver.</strong> The driver accepts HDFS input and output paths and an optional stopword file. It configures the text input format and the mapper, combiner, and reducer, then waits for job completion.</p>
+<h2>2.2 Hadoop experiments</h2>
+<p>Both jobs used the same ten books with Hadoop 3.5.0 and Java 17. Each completed successfully with 10 mappers and one reducer, processing 125,869 input lines. The books were processed in full, including Project Gutenberg headers and licensing text.</p>
+<table class="runs"><thead><tr><th scope="col">Mode</th><th scope="col">Successful job ID</th><th scope="col">HDFS output directory</th></tr></thead><tbody>
+<tr><th scope="row">Unfiltered</th><td>job_1795619064165_0005</td><td><code>/hw1_Lala_Huseynova/output/<wbr>bigram_without_stopwords</code></td></tr>
+<tr><th scope="row">Filtered</th><td>job_1795619064165_0006</td><td><code>/hw1_Lala_Huseynova/output/<wbr>bigram_with_stopwords</code></td></tr>
+</tbody></table>
+<figure><img src="../screenshots/03_bigram_without_stopwords.png" alt="Successful unfiltered job and a sample of the reducer output."><figcaption><strong>Figure 2.</strong> Successful unfiltered job and a sample of the reducer output.</figcaption></figure>
+<figure><img src="../screenshots/06_bigram_with_stopwords.png" alt="Successful filtered job and a sample of the separate reducer output."><figcaption><strong>Figure 3.</strong> Successful filtered job and a sample of the separate reducer output.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>3 / 9</span></footer>
+</section>
+<section class="page group-execution" aria-label="Page 4">
+<div class="section-label">Part 3 · 35 points</div>
+<h1>Average rating per movie</h1>
+<h2>3.1 Implementation</h2>
+<p><strong>Mapper.</strong> The mapper reads one CSV line at a time and skips the expected header at byte offset zero. It checks for four fields and parses the movie ID and rating. A malformed row, a nonpositive movie ID, or a nonfinite or out-of-range rating increments <code>INVALID</code>. Each valid row emits the movie ID with a pair containing the rating and a count of one. The mapper counts the header and valid rows separately.</p>
+<p><strong>Combiner and reducer.</strong> The combiner adds partial rating sums and their counts for each movie. Carrying both totals gives each rating equal weight, even when one mapper processes more ratings for a movie than another. The reducer merges all partial totals, divides the sum by the count as a floating-point value, and writes the movie ID, count, and average for every movie.</p>
+<h2>3.2 Hadoop execution</h2>
+<p>The full 709,550,327-byte dataset ran as <code>job_1795619064165_0008</code> with six mappers and one reducer. YARN reported <code>SUCCEEDED</code> and the output was saved at <code>/hw1_Lala_Huseynova/output/group_average</code>.</p>
+<table class="totals"><thead><tr><th scope="col">Input lines</th><th scope="col">Headers</th><th scope="col">Valid ratings</th><th scope="col">Invalid rows</th><th scope="col">Movies</th><th scope="col">Eligible (≥ 50)</th></tr></thead><tbody>
+<tr><th scope="row">26,024,290</th><td>1</td><td>26,024,289</td><td>0</td><td>45,115</td><td>12,534</td></tr>
+</tbody></table>
+<p>The rating counts in the reducer output sum to 26,024,289, matching the valid-record and map-output counters. The 45,115 distinct movie IDs match Hadoop’s reduce-output count.</p>
+<figure><img src="../screenshots/11_group_average_job.png" alt="Successful GroupAverage job, YARN application ID, and HDFS output path."><figcaption><strong>Figure 4.</strong> Successful GroupAverage job, YARN application ID, and HDFS output path.</figcaption></figure>
+<figure><img src="../screenshots/11a_group_average_counters.png" alt="Hadoop counters and verification of the reducer totals."><figcaption><strong>Figure 5.</strong> Hadoop counters and verification of the reducer totals.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>4 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 5">
+<div class="section-label">Part 3 · Average per group</div>
+<h1>3.3 Top 20 movies by average rating</h1>
+<p>The Java ranking utility reads the saved reducer output and keeps movies with at least 50 ratings. It sorts by the full stored average in descending order and breaks ties by ascending numeric movie ID. The table displays averages to four decimal places.</p>
+<table class="ranks movies"><thead><tr><th scope="col">Rank</th><th scope="col">Movie ID</th><th scope="col">Record Count</th><th scope="col">Average Rating</th></tr></thead><tbody>
+<tr><th scope="row">1</th><td>159817</td><td>754</td><td>4.4788</td></tr>
+<tr><th scope="row">2</th><td>318</td><td>91,082</td><td>4.4290</td></tr>
+<tr><th scope="row">3</th><td>170705</td><td>284</td><td>4.3944</td></tr>
+<tr><th scope="row">4</th><td>171011</td><td>95</td><td>4.3526</td></tr>
+<tr><th scope="row">5</th><td>858</td><td>57,070</td><td>4.3398</td></tr>
+<tr><th scope="row">6</th><td>50</td><td>59,271</td><td>4.3002</td></tr>
+<tr><th scope="row">7</th><td>100044</td><td>197</td><td>4.2716</td></tr>
+<tr><th scope="row">8</th><td>527</td><td>67,662</td><td>4.2665</td></tr>
+<tr><th scope="row">9</th><td>1221</td><td>36,679</td><td>4.2635</td></tr>
+<tr><th scope="row">10</th><td>2019</td><td>13,994</td><td>4.2551</td></tr>
+<tr><th scope="row">11</th><td>904</td><td>21,335</td><td>4.2326</td></tr>
+<tr><th scope="row">12</th><td>1203</td><td>16,896</td><td>4.2312</td></tr>
+<tr><th scope="row">13</th><td>2959</td><td>60,024</td><td>4.2307</td></tr>
+<tr><th scope="row">14</th><td>1193</td><td>40,103</td><td>4.2291</td></tr>
+<tr><th scope="row">15</th><td>166024</td><td>183</td><td>4.2268</td></tr>
+<tr><th scope="row">16</th><td>163809</td><td>157</td><td>4.2197</td></tr>
+<tr><th scope="row">17</th><td>142115</td><td>273</td><td>4.2179</td></tr>
+<tr><th scope="row">18</th><td>912</td><td>30,043</td><td>4.2144</td></tr>
+<tr><th scope="row">19</th><td>750</td><td>28,280</td><td>4.2130</td></tr>
+<tr><th scope="row">20</th><td>1212</td><td>7,676</td><td>4.2094</td></tr>
+</tbody></table>
+<figure><img src="../screenshots/12_group_average_top20.png" alt="The Java Top 20 ranking generated from the saved Hadoop output."><figcaption><strong>Figure 6.</strong> The Java Top 20 ranking generated from the saved Hadoop output.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>5 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 6">
+<div class="section-label">Part 4 · Analysis</div>
+<h1>Question 1 · Unfiltered bigrams</h1>
+<p class="question">What are the 25 most frequent bigrams and their respective counts when stopwords are not removed?</p>
+<table class="ranks bigrams"><thead><tr><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><th scope="row">1</th><td>of the</td><td>7,306</td><td>14</td><td>had been</td><td>1,457</td></tr>
+<tr><th scope="row">2</th><td>in the</td><td>5,176</td><td>15</td><td>of his</td><td>1,385</td></tr>
+<tr><th scope="row">3</th><td>to the</td><td>3,226</td><td>16</td><td>for the</td><td>1,313</td></tr>
+<tr><th scope="row">4</th><td>on the</td><td>2,525</td><td>17</td><td>he was</td><td>1,297</td></tr>
+<tr><th scope="row">5</th><td>it was</td><td>2,463</td><td>18</td><td>she had</td><td>1,277</td></tr>
+<tr><th scope="row">6</th><td>and the</td><td>2,267</td><td>19</td><td>by the</td><td>1,266</td></tr>
+<tr><th scope="row">7</th><td>to be</td><td>2,206</td><td>20</td><td>was a</td><td>1,261</td></tr>
+<tr><th scope="row">8</th><td>at the</td><td>2,058</td><td>21</td><td>from the</td><td>1,240</td></tr>
+<tr><th scope="row">9</th><td>he had</td><td>1,693</td><td>22</td><td>it is</td><td>1,239</td></tr>
+<tr><th scope="row">10</th><td>with a</td><td>1,627</td><td>23</td><td>and i</td><td>1,098</td></tr>
+<tr><th scope="row">11</th><td>in a</td><td>1,605</td><td>24</td><td>of her</td><td>1,089</td></tr>
+<tr><th scope="row">12</th><td>of a</td><td>1,594</td><td>25</td><td>i have</td><td>1,086</td></tr>
+<tr><th scope="row">13</th><td>with the</td><td>1,579</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>All 25 pairs contain at least one word from the stopword list. The leading pairs, <em>of the</em> (7,306) and <em>in the</em> (5,176), show how often common prepositions and articles occur together in the ten books.</p>
+<figure><img src="../screenshots/05_top25_without_stopwords.png" alt="Top 25 unfiltered bigrams from the saved reducer output."><figcaption><strong>Figure 7.</strong> Top 25 unfiltered bigrams from the saved reducer output.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>6 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 7">
+<div class="section-label">Part 4 · Analysis</div>
+<h1>Question 2 · Filtered bigrams</h1>
+<p class="question">What are the 25 most frequent bigrams and their respective counts when stopwords are removed?</p>
+<table class="ranks bigrams"><thead><tr><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th></tr></thead><tbody>
+<tr><th scope="row">1</th><td>project gutenberg</td><td>720</td><td>14</td><td>electronic works</td><td>160</td></tr>
+<tr><th scope="row">2</th><td>mr franklin</td><td>386</td><td>15</td><td>know what</td><td>160</td></tr>
+<tr><th scope="row">3</th><td>mr tulliver</td><td>260</td><td>16</td><td>miss rachel</td><td>156</td></tr>
+<tr><th scope="row">4</th><td>said mrs</td><td>244</td><td>17</td><td>mr godfrey</td><td>153</td></tr>
+<tr><th scope="row">5</th><td>said maggie</td><td>219</td><td>18</td><td>young man</td><td>146</td></tr>
+<tr><th scope="row">6</th><td>said mr</td><td>217</td><td>19</td><td>van degen</td><td>141</td></tr>
+<tr><th scope="row">7</th><td>sergeant cuff</td><td>196</td><td>20</td><td>first time</td><td>135</td></tr>
+<tr><th scope="row">8</th><td>mr bruff</td><td>195</td><td>21</td><td>mr blake</td><td>134</td></tr>
+<tr><th scope="row">9</th><td>sir daniel</td><td>179</td><td>22</td><td>mr spragg</td><td>134</td></tr>
+<tr><th scope="row">10</th><td>said tom</td><td>178</td><td>23</td><td>archive foundation</td><td>130</td></tr>
+<tr><th scope="row">11</th><td>mrs tulliver</td><td>176</td><td>24</td><td>gutenberg electronic</td><td>130</td></tr>
+<tr><th scope="row">12</th><td>tant sannie</td><td>174</td><td>25</td><td>mrs charmond</td><td>122</td></tr>
+<tr><th scope="row">13</th><td>mrs todd</td><td>172</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>The filter removed all 25 leaders from the unfiltered ranking. Names and forms of address such as <em>mr franklin</em> and <em>mr tulliver</em> moved into the leading positions. Repeated publisher and licensing text also shaped the ranking. <em>project gutenberg</em> ranked first with 720 occurrences, and <em>archive foundation</em> also appeared in the Top 25.</p>
+<figure><img src="../screenshots/08_top25_with_stopwords.png" alt="Top 25 filtered bigrams from the saved reducer output."><figcaption><strong>Figure 8.</strong> Top 25 filtered bigrams from the saved reducer output.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>7 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 8">
+<div class="section-label">Part 4 · Analysis</div>
+<h1>Question 3 · Mapper output bytes</h1>
+<p class="question">Based on your application output and Hadoop job counters, how does removing stopwords affect the total number of bytes emitted by the mappers? Explain one specific way this change could affect the performance of your MapReduce job.</p>
+<table class="comparison"><thead><tr><th scope="col">Measure</th><th scope="col">Without filtering</th><th scope="col">With filtering</th><th scope="col">Reduction</th><th scope="col">Reduction (%)</th></tr></thead><tbody>
+<tr><th scope="row">Map output bytes</th><td>19,823,751</td><td>4,081,093</td><td>15,742,658</td><td>79.41%</td></tr>
+</tbody></table>
+<p class="formula">Percentage reduction = ((19,823,751 − 4,081,093) ÷ 19,823,751) × 100 ≈ 79.41%</p>
+<p>Filtering reduced mapper emissions from 1,068,410 to 186,460 records. Each skipped pair avoids serializing a key and value and putting them in the mapper’s intermediate buffer. This gives Hadoop fewer records to sort and can reduce spill writes and disk I/O.</p>
+<p><em>Map output bytes</em> measures emitted intermediate data before combining. The <em>Reduce shuffle bytes</em> counter measures the intermediate data fetched by reducers after map-side processing, which includes combining. Shuffle traffic fell from 11,629,569 to 3,583,570 bytes, reducing the amount of data transferred and merged in these runs.</p>
+<figure><img src="../screenshots/04_counters_without_stopwords.png" alt="Unfiltered Hadoop counters, including Map output bytes, Reduce shuffle bytes, and Reduce output records."><figcaption><strong>Figure 9.</strong> Unfiltered Hadoop counters, including Map output bytes, Reduce shuffle bytes, and Reduce output records.</figcaption></figure>
+<figure><img src="../screenshots/07_counters_with_stopwords.png" alt="The same counters for the filtered run. Figure 11 summarizes the reductions."><figcaption><strong>Figure 10.</strong> The same counters for the filtered run. Figure 11 summarizes the reductions.</figcaption></figure>
+<footer><span>INFT 4836 · Homework 1</span><span>8 / 9</span></footer>
+</section>
+<section class="page" aria-label="Page 9">
+<div class="section-label">Part 4 · Analysis</div>
+<h1>Question 4 · Distinct bigram keyspace</h1>
+<p class="question">What is the size of the keyspace (number of distinct bigrams) with and without stopword removal? How does the difference relate to the number of stopwords in your list? Explain your observations.</p>
+<table class="comparison"><thead><tr><th scope="col">Measure</th><th scope="col">Without filtering</th><th scope="col">With filtering</th><th scope="col">Reduction</th><th scope="col">Reduction (%)</th></tr></thead><tbody>
+<tr><th scope="row">Distinct bigrams</th><td>346,334</td><td>128,654</td><td>217,680</td><td>62.85%</td></tr>
+</tbody></table>
+<p class="formula">Percentage reduction = ((346,334 − 128,654) ÷ 346,334) × 100 ≈ 62.85%</p>
+<p>The distinct key counts from both saved reducer outputs equal their respective <em>Reduce output records</em> counters (Figures 9 and 10). A row-by-row check found that all 128,654 retained keys had the same counts in both runs and that none contained a stopword.</p>
+<p>The 123 unique stopwords removed 217,680 distinct keys because a single stopword can appear next to many different words, in either position. For example, <em>the</em> is part of <em>of the</em>, <em>in the</em>, and <em>to the</em>. The size of the reduction depends on the combinations actually present in the books.</p>
+<figure><img src="../screenshots/09_stopword_comparison.png" alt="Verified mapper output and distinct-key reductions for the two bigram jobs."><figcaption><strong>Figure 11.</strong> Verified mapper output and distinct-key reductions for the two bigram jobs.</figcaption></figure>
+<figure><img src="../screenshots/10_stopword_count.png" alt="The stopword file contains 123 total entries and 123 unique entries."><figcaption><strong>Figure 12.</strong> The stopword file contains 123 total entries and 123 unique entries.</figcaption></figure>
+<h2>Conclusion</h2>
+<p>Both Java MapReduce applications completed on Hadoop. With stopword filtering, the bigram job emitted 79.41% fewer mapper bytes and produced 62.85% fewer distinct keys. The movie-rating job aggregated 26,024,289 valid ratings across 45,115 movies. The final ranking selected the 20 highest averages from the 12,534 movies with at least 50 ratings.</p>
+<footer><span>INFT 4836 · Homework 1</span><span>9 / 9</span></footer>
+</section>
+</body>
+</html>

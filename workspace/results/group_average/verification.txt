@@ -1,0 +1,4 @@
+Input records accounted for (header + valid + invalid) = 26024290
+Sum of rating counts across all movies = 26024289
+Distinct movie IDs in reducer output = 45115
+PASS: input totals, valid ratings and movie counts match Hadoop counters.

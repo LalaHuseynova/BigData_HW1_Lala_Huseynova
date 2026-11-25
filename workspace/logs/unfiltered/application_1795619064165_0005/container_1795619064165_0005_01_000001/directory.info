@@ -1,0 +1,28 @@
+ls -l:
+total 36
+-rw-r--r-- 1 hadoop users  105 Nov 25 15:35 container_tokens
+-rwx------ 1 hadoop users  678 Nov 25 15:35 default_container_executor_session.sh
+-rwx------ 1 hadoop users  733 Nov 25 15:35 default_container_executor.sh
+lrwxrwxrwx 1 hadoop users  109 Nov 25 15:35 job.jar -> /tmp/hadoop-hadoop/nm-local-dir/usercache/hadoop/appcache/application_1795619064165_0005/filecache/11/job.jar
+drwxr-xr-x 2 hadoop users 4096 Nov 25 15:35 jobSubmitDir
+lrwxrwxrwx 1 hadoop users  109 Nov 25 15:35 job.xml -> /tmp/hadoop-hadoop/nm-local-dir/usercache/hadoop/appcache/application_1795619064165_0005/filecache/13/job.xml
+-rwx------ 1 hadoop users 5082 Nov 25 15:35 launch_container.sh
+drwx--x--- 2 hadoop users 4096 Nov 25 15:35 tmp
+find -L . -maxdepth 5 -ls:
+    12561      4 drwx--x---   4 hadoop   users        4096 Nov 25 15:35 .
+    12692      4 drwxr-xr-x   2 hadoop   users        4096 Nov 25 15:35 ./jobSubmitDir
+    12116      4 -r-x------   1 hadoop   users         177 Nov 25 15:35 ./jobSubmitDir/job.splitmetainfo
+    12416      4 -r-x------   1 hadoop   users        1319 Nov 25 15:35 ./jobSubmitDir/job.split
+    12686      4 -rw-r--r--   1 hadoop   users          16 Nov 25 15:35 ./.default_container_executor.sh.crc
+    12563      4 drwx--x---   2 hadoop   users        4096 Nov 25 15:35 ./tmp
+    12683      4 -rwx------   1 hadoop   users         678 Nov 25 15:35 ./default_container_executor_session.sh
+    12607      8 -rwx------   1 hadoop   users        5082 Nov 25 15:35 ./launch_container.sh
+    12684      4 -rw-r--r--   1 hadoop   users          16 Nov 25 15:35 ./.default_container_executor_session.sh.crc
+    12564      4 -rw-r--r--   1 hadoop   users         105 Nov 25 15:35 ./container_tokens
+    12685      4 -rwx------   1 hadoop   users         733 Nov 25 15:35 ./default_container_executor.sh
+    12606      4 -rw-r--r--   1 hadoop   users          12 Nov 25 15:35 ./.container_tokens.crc
+    12281      4 drwx------   2 hadoop   users        4096 Nov 25 15:35 ./job.jar
+    12282      8 -r-x------   1 hadoop   users        5010 Nov 25 15:35 ./job.jar/job.jar
+    12523    268 -r-x------   1 hadoop   users      272325 Nov 25 15:35 ./job.xml
+    12682      4 -rw-r--r--   1 hadoop   users          48 Nov 25 15:35 ./.launch_container.sh.crc
+broken symlinks(find -L . -maxdepth 5 -type l -ls):

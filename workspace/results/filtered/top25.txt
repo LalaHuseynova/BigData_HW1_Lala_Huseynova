@@ -1,0 +1,20 @@
+Ten books | filtered bigrams | Top 25
+job_1795619064165_0006 | application_1795619064165_0006 | SUCCEEDED
+Map output bytes=4081093
+Reduce output records=128654
+Distinct bigrams (output records) = 128654
+Total occurrences (sum of counts) = 186460
+Rank  Bigram                    Count    Rank  Bigram                    Count
+   1  project gutenberg          720      14  electronic works           160
+   2  mr franklin                386      15  know what                  160
+   3  mr tulliver                260      16  miss rachel                156
+   4  said mrs                   244      17  mr godfrey                 153
+   5  said maggie                219      18  young man                  146
+   6  said mr                    217      19  van degen                  141
+   7  sergeant cuff              196      20  first time                 135
+   8  mr bruff                   195      21  mr blake                   134
+   9  sir daniel                 179      22  mr spragg                  134
+  10  said tom                   178      23  archive foundation         130
+  11  mrs tulliver               176      24  gutenberg electronic       130
+  12  tant sannie                174      25  mrs charmond               122
+  13  mrs todd                   172
