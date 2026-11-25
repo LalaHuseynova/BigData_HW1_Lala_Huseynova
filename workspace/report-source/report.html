@@ -32,7 +32,7 @@ tbody tr:nth-child(even) { background: #f6f8fa; }
 .books td:nth-child(3), .books thead th:nth-child(3), .ranks td, .ranks th, .comparison td, .comparison th:not(:first-child) { text-align: right; }
 .bigrams td:nth-child(2), .bigrams th:nth-child(2), .bigrams td:nth-child(5), .bigrams th:nth-child(5) { text-align: left; }
 .bigrams td:nth-child(4), .bigrams th:nth-child(4) { border-left: .7pt solid #d7dce1; }
-.bigrams th, .bigrams td { padding-top: 1.5mm; padding-bottom: 1.5mm; }
+.bigrams th, .bigrams td { padding-top: 1.3mm; padding-bottom: 1.3mm; }
 .movies th, .movies td { padding-top: 0.95mm; padding-bottom: 0.95mm; }
 .runs td:nth-child(2) { white-space: nowrap; }
 .totals th, .totals td { text-align: right; }
@@ -154,7 +154,7 @@ figcaption { font-size: 9pt; line-height: 1.25; margin-top: 1.35mm; color: #303b
 </section>
 <section class="page" aria-label="Page 6">
 <div class="section-label">Part 4 · Analysis</div>
-<h1>Question 1 · Unfiltered bigrams</h1>
+<h1>4.1 Unfiltered bigrams</h1>
 <p class="question">What are the 25 most frequent bigrams and their respective counts when stopwords are not removed?</p>
 <table class="ranks bigrams"><thead><tr><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th></tr></thead><tbody>
 <tr><th scope="row">1</th><td>of the</td><td>7,306</td><td>14</td><td>had been</td><td>1,457</td></tr>
@@ -171,13 +171,13 @@ figcaption { font-size: 9pt; line-height: 1.25; margin-top: 1.35mm; color: #303b
 <tr><th scope="row">12</th><td>of a</td><td>1,594</td><td>25</td><td>i have</td><td>1,086</td></tr>
 <tr><th scope="row">13</th><td>with the</td><td>1,579</td><td></td><td></td><td></td></tr>
 </tbody></table>
-<p>All 25 pairs contain at least one word from the stopword list. The leading pairs, <em>of the</em> (7,306) and <em>in the</em> (5,176), show how often common prepositions and articles occur together in the ten books.</p>
+<p>The count is the number of times a pair appears as two consecutive words on the same line, summed across all ten books. The table ranks pairs by count, with alphabetical order breaking ties. <em>Of the</em> leads with 7,306 occurrences, followed by <em>in the</em> with 5,176. All 25 pairs contain at least one word from the stopword list.</p>
 <figure><img src="../screenshots/05_top25_without_stopwords.png" alt="Top 25 unfiltered bigrams from the saved reducer output."><figcaption><strong>Figure 7.</strong> Top 25 unfiltered bigrams from the saved reducer output.</figcaption></figure>
 <footer><span>INFT 4836 · Homework 1</span><span>6 / 9</span></footer>
 </section>
 <section class="page" aria-label="Page 7">
 <div class="section-label">Part 4 · Analysis</div>
-<h1>Question 2 · Filtered bigrams</h1>
+<h1>4.2 Filtered bigrams</h1>
 <p class="question">What are the 25 most frequent bigrams and their respective counts when stopwords are removed?</p>
 <table class="ranks bigrams"><thead><tr><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th><th scope="col">Rank</th><th scope="col">Bigram</th><th scope="col">Count</th></tr></thead><tbody>
 <tr><th scope="row">1</th><td>project gutenberg</td><td>720</td><td>14</td><td>electronic works</td><td>160</td></tr>
@@ -194,19 +194,19 @@ figcaption { font-size: 9pt; line-height: 1.25; margin-top: 1.35mm; color: #303b
 <tr><th scope="row">12</th><td>tant sannie</td><td>174</td><td>25</td><td>mrs charmond</td><td>122</td></tr>
 <tr><th scope="row">13</th><td>mrs todd</td><td>172</td><td></td><td></td><td></td></tr>
 </tbody></table>
-<p>The filter removed all 25 leaders from the unfiltered ranking. Names and forms of address such as <em>mr franklin</em> and <em>mr tulliver</em> moved into the leading positions. Repeated publisher and licensing text also shaped the ranking. <em>project gutenberg</em> ranked first with 720 occurrences, and <em>archive foundation</em> also appeared in the Top 25.</p>
+<p>Every unfiltered Top 25 pair contained a stopword, so all 25 dropped out. The surviving pairs kept their original counts. Names and forms of address such as <em>mr franklin</em> (386) and <em>mr tulliver</em> (260) rose in rank. The books also include repeated headers and licensing text, which helps explain why <em>project gutenberg</em> leads with 720 occurrences.</p>
 <figure><img src="../screenshots/08_top25_with_stopwords.png" alt="Top 25 filtered bigrams from the saved reducer output."><figcaption><strong>Figure 8.</strong> Top 25 filtered bigrams from the saved reducer output.</figcaption></figure>
 <footer><span>INFT 4836 · Homework 1</span><span>7 / 9</span></footer>
 </section>
 <section class="page" aria-label="Page 8">
 <div class="section-label">Part 4 · Analysis</div>
-<h1>Question 3 · Mapper output bytes</h1>
+<h1>4.3 Mapper output bytes</h1>
 <p class="question">Based on your application output and Hadoop job counters, how does removing stopwords affect the total number of bytes emitted by the mappers? Explain one specific way this change could affect the performance of your MapReduce job.</p>
 <table class="comparison"><thead><tr><th scope="col">Measure</th><th scope="col">Without filtering</th><th scope="col">With filtering</th><th scope="col">Reduction</th><th scope="col">Reduction (%)</th></tr></thead><tbody>
 <tr><th scope="row">Map output bytes</th><td>19,823,751</td><td>4,081,093</td><td>15,742,658</td><td>79.41%</td></tr>
 </tbody></table>
 <p class="formula">Percentage reduction = ((19,823,751 − 4,081,093) ÷ 19,823,751) × 100 ≈ 79.41%</p>
-<p>Filtering reduced mapper emissions from 1,068,410 to 186,460 records. Each skipped pair avoids serializing a key and value and putting them in the mapper’s intermediate buffer. This gives Hadoop fewer records to sort and can reduce spill writes and disk I/O.</p>
+<p>The mapper emitted 15,742,658 fewer bytes, a 79.41% reduction from the unfiltered run. It wrote 186,460 records instead of 1,068,410. Each rejected pair avoids encoding a key and count and adding them to the mapper’s intermediate buffer. With fewer records to sort, Hadoop may also write less intermediate data to disk when that buffer fills.</p>
 <p><em>Map output bytes</em> measures emitted intermediate data before combining. The <em>Reduce shuffle bytes</em> counter measures the intermediate data fetched by reducers after map-side processing, which includes combining. Shuffle traffic fell from 11,629,569 to 3,583,570 bytes, reducing the amount of data transferred and merged in these runs.</p>
 <figure><img src="../screenshots/04_counters_without_stopwords.png" alt="Unfiltered Hadoop counters, including Map output bytes, Reduce shuffle bytes, and Reduce output records."><figcaption><strong>Figure 9.</strong> Unfiltered Hadoop counters, including Map output bytes, Reduce shuffle bytes, and Reduce output records.</figcaption></figure>
 <figure><img src="../screenshots/07_counters_with_stopwords.png" alt="The same counters for the filtered run. Figure 11 summarizes the reductions."><figcaption><strong>Figure 10.</strong> The same counters for the filtered run. Figure 11 summarizes the reductions.</figcaption></figure>
@@ -214,14 +214,14 @@ figcaption { font-size: 9pt; line-height: 1.25; margin-top: 1.35mm; color: #303b
 </section>
 <section class="page" aria-label="Page 9">
 <div class="section-label">Part 4 · Analysis</div>
-<h1>Question 4 · Distinct bigram keyspace</h1>
+<h1>4.4 Distinct bigram keyspace</h1>
 <p class="question">What is the size of the keyspace (number of distinct bigrams) with and without stopword removal? How does the difference relate to the number of stopwords in your list? Explain your observations.</p>
 <table class="comparison"><thead><tr><th scope="col">Measure</th><th scope="col">Without filtering</th><th scope="col">With filtering</th><th scope="col">Reduction</th><th scope="col">Reduction (%)</th></tr></thead><tbody>
 <tr><th scope="row">Distinct bigrams</th><td>346,334</td><td>128,654</td><td>217,680</td><td>62.85%</td></tr>
 </tbody></table>
 <p class="formula">Percentage reduction = ((346,334 − 128,654) ÷ 346,334) × 100 ≈ 62.85%</p>
 <p>The distinct key counts from both saved reducer outputs equal their respective <em>Reduce output records</em> counters (Figures 9 and 10). A row-by-row check found that all 128,654 retained keys had the same counts in both runs and that none contained a stopword.</p>
-<p>The 123 unique stopwords removed 217,680 distinct keys because a single stopword can appear next to many different words, in either position. For example, <em>the</em> is part of <em>of the</em>, <em>in the</em>, and <em>to the</em>. The size of the reduction depends on the combinations actually present in the books.</p>
+<p>The 123 unique stopwords removed 217,680 distinct pairs, or 62.85% of the original keyspace. A stopword can appear in many keys. For example, <em>the</em> occurs in <em>of the</em>, <em>in the</em>, and <em>to the</em>. Each of those pairs contributes one key to the reduction, regardless of its frequency. A pair with two stopwords still contributes just one removed key.</p>
 <figure><img src="../screenshots/09_stopword_comparison.png" alt="Verified mapper output and distinct-key reductions for the two bigram jobs."><figcaption><strong>Figure 11.</strong> Verified mapper output and distinct-key reductions for the two bigram jobs.</figcaption></figure>
 <figure><img src="../screenshots/10_stopword_count.png" alt="The stopword file contains 123 total entries and 123 unique entries."><figcaption><strong>Figure 12.</strong> The stopword file contains 123 total entries and 123 unique entries.</figcaption></figure>
 <h2>Conclusion</h2>
